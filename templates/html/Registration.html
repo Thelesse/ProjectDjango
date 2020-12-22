@@ -1,0 +1,10 @@
+{% extends 'html/Main.html' %}
+{% load static %}
+{% block content %}
+    <form method="post" action={% url 'register' %}>
+    {% csrf_token %}
+    <br>
+    {{ form.as_p}}
+    <input type="submit" value="Submit">
+    </form>
+{% endblock %}

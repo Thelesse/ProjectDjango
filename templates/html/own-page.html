@@ -1,0 +1,19 @@
+{% extends 'html/Main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row">
+            {% for post in posts %}
+            <div class="col-lg-4" >
+                <a href={% url 'show_post' post.id %}><img class="thumbnail" src="{{ post.imageURL }}"></a>
+                <div  class="box-element product">
+                    <h6><strong>{{ post.text }}</strong></h6>
+                    <h6>{{ post.sum_comments }} comments</h6>
+                    <h6>{{ post.post_likes }} likes</h6>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+{% endblock %}

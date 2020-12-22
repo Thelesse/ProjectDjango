@@ -1,0 +1,29 @@
+{% extends 'html/Main.html' %}
+{% load static %}
+{% block content %}
+        <div class="row">
+            <div class="col-lg-6" >
+                <img style="height: 25rem" class="thumbnail" src="{{post.imageURL}}">
+                <div class="box-element product">
+                    <p style="font-size: 25px">{{post.text}}</p>
+                    <hr>
+                    <p><a href="{% url 'add_like' post.id %}" style="font-size: 20px">&#9829</a>  {{ post.post_likes }} <strong> likes</strong></p>
+                    {% if visitor.name == user.app_user.name %}
+                    <div><a style="border-radius: 20px;float: right;height: 2.5rem; margin-top: 0.3rem; width: 4rem
+                    " href="#" class="btn btn-outline-danger">Delete</a></div>
+                    {% endif %}
+                    <p>{{ sum }}<strong> Comments</strong></p>
+                    <br>
+                    {% for c in comments %}
+                    <p style="font-size: small">{{ c.user }} : {{ c.text }}</p>
+                    {% endfor %}
+                    <form action="{% url 'add_cm' post.id %}" method="post">
+                        {% csrf_token %}
+                        <input class="form-control" type="text" placeholder="Add a comment.. " name="comment">
+                        <input class="btn btn-outline-success" type="submit" value="send">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
