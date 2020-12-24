@@ -1,17 +1,11 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-
-#models almost are our objects in database for example for our App-user we have user,name and email
-#fields in database
-#when you write models.oneToOneFiled it means connection between 2 models are one to one
-#when you write models.ForeignKey it means connection is one to many
 class App_User(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=False, blank=False)
     name = models.CharField(max_length=40, blank=False, null=False)
     email = models.CharField(max_length=40, blank=True, null=True)
 
-    #when you call the app_user return the name
     def __str__(self):
         return self.name
 
@@ -31,7 +25,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    #function that return the url of post image
     @property
     def imageURL(self):
         try:
@@ -40,17 +33,15 @@ class Post(models.Model):
             url =''
         return url
 
-    #function that returns text of all comments of current post
     @property
     def post_comments(self):
         return [c for c in Comments.objects.all() if c.post.id == self.id]
 
-    #function that returns the number of comments of current post
+
     @property
     def sum_comments(self):
         return len(self.post_comments)
 
-    #returns number of likes of current post
     @property
     def post_likes(self):
         return len([like for like in Likes.objects.all() if like.post.id == self.id])
